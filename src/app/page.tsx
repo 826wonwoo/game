@@ -812,46 +812,47 @@ export default function BrickBreakerGame() {
             </div>
           )}
 
-          {/* 게임 승리 오버레이 (Hall of Fame TOP 3 포함) */}
+          {/* 게임 승리 오버레이 (Hall of Fame TOP 3 포함 - 모바일 최적화) */}
           {gameState === "VICTORY" && (
-            <div className="absolute inset-0 bg-emerald-950/90 backdrop-blur-md flex flex-col items-center justify-center z-20 p-4 text-center animate-fade-in overflow-y-auto">
-              <div className="p-2.5 sm:p-3 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 mb-1.5 animate-bounce">
-                <Trophy className="w-8 h-8 sm:w-10 sm:h-10" />
+            <div className="absolute inset-0 bg-emerald-950/95 backdrop-blur-md flex flex-col items-center justify-start sm:justify-center z-20 p-2 sm:p-4 text-center animate-fade-in overflow-y-auto">
+              
+              {/* 상단 축하 배너 */}
+              <div className="flex flex-col items-center mt-1 sm:mt-0">
+                <div className="p-1.5 sm:p-3 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 mb-1 animate-bounce">
+                  <Trophy className="w-6 h-6 sm:w-10 sm:h-10" />
+                </div>
+                <h2 className="text-lg sm:text-2xl font-black text-white leading-tight">🎉 미션 완료! 축하합니다 🎉</h2>
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-white">🎉 미션 완료! 축하합니다 🎉</h2>
-              <p className="text-emerald-200 text-xs sm:text-sm font-medium mt-0.5">
-                연한 빨강 블록 3개를 모두 격파했습니다!
-              </p>
 
               {/* 내 클리어 기록 */}
-              <div className="my-2.5 px-4 py-2 rounded-xl bg-black/40 border border-emerald-500/30 flex items-center justify-around gap-6 w-full max-w-xs">
+              <div className="my-1.5 sm:my-2 px-3 py-1.5 rounded-xl bg-black/50 border border-emerald-500/30 flex items-center justify-around gap-4 w-full max-w-[280px] sm:max-w-xs">
                 <div className="text-left">
-                  <div className="text-[10px] text-slate-400">플레이어</div>
-                  <div className="text-sm font-bold text-white truncate max-w-[100px]">{playerName}</div>
+                  <div className="text-[9px] sm:text-[10px] text-slate-400">플레이어</div>
+                  <div className="text-xs sm:text-sm font-bold text-white truncate max-w-[90px]">{playerName}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-[10px] text-slate-400">소요 시간</div>
-                  <div className="text-xl font-mono font-bold text-emerald-400">{formatTime(elapsedTime)}</div>
+                  <div className="text-[9px] sm:text-[10px] text-slate-400">소요 시간</div>
+                  <div className="text-lg sm:text-xl font-mono font-bold text-emerald-400">{formatTime(elapsedTime)}</div>
                 </div>
               </div>
 
-              {/* 🏆 Hall of Fame (명예의 전당 TOP 3) */}
-              <div className="w-full max-w-sm rounded-xl bg-slate-900/90 border border-amber-500/30 p-3 shadow-lg shadow-black/40 my-1">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-1.5 mb-2 px-1">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
-                    <Crown className="w-4 h-4 text-amber-400" />
+              {/* 🏆 Hall of Fame (명예의 전당 TOP 3 - 모바일에서 3명 모두 시원하게 보이도록 압축 디자인) */}
+              <div className="w-full max-w-[310px] sm:max-w-sm rounded-xl bg-slate-900/95 border border-amber-500/30 p-2 sm:p-3 shadow-lg shadow-black/50 my-1">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-1 mb-1.5 px-1">
+                  <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-amber-400">
+                    <Crown className="w-3.5 h-3.5 text-amber-400" />
                     <span>HALL OF FAME (TOP 3)</span>
                   </div>
-                  <span className="text-[10px] text-slate-400">빠른 순위</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400">기록 순위</span>
                 </div>
 
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {hallOfFame.length > 0 ? (
                     hallOfFame.slice(0, 3).map((item, index) => {
                       const rankColors = [
-                        "bg-amber-500/10 border-amber-500/40 text-amber-300", // 1위 금
-                        "bg-slate-300/10 border-slate-400/30 text-slate-200", // 2위 은
-                        "bg-amber-800/20 border-amber-700/30 text-amber-500", // 3위 동
+                        "bg-amber-500/15 border-amber-500/50 text-amber-200", // 1위 금
+                        "bg-slate-300/15 border-slate-400/40 text-slate-100", // 2위 은
+                        "bg-amber-800/25 border-amber-700/40 text-amber-400", // 3위 동
                       ];
                       const badgeColors = [
                         "bg-amber-400 text-slate-950",
@@ -862,15 +863,15 @@ export default function BrickBreakerGame() {
                       return (
                         <div
                           key={index}
-                          className={`flex items-center justify-between px-3 py-1.5 rounded-lg border text-xs ${rankColors[index] || "bg-slate-800/40 border-slate-700 text-slate-300"}`}
+                          className={`flex items-center justify-between px-2.5 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs ${rankColors[index] || "bg-slate-800/40 border-slate-700 text-slate-300"}`}
                         >
-                          <div className="flex items-center gap-2">
-                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${badgeColors[index] || "bg-slate-700 text-slate-300"}`}>
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${badgeColors[index] || "bg-slate-700 text-slate-300"}`}>
                               {index + 1}
                             </span>
-                            <span className="font-semibold truncate max-w-[120px]">{item.name}</span>
+                            <span className="font-semibold truncate max-w-[110px] sm:max-w-[140px]">{item.name}</span>
                           </div>
-                          <div className="font-mono font-bold text-emerald-300 flex items-center gap-1">
+                          <div className="font-mono font-bold text-emerald-300 flex items-center gap-1 shrink-0">
                             <Clock className="w-3 h-3 text-slate-400" />
                             <span>{item.finishtime}</span>
                           </div>
@@ -885,11 +886,12 @@ export default function BrickBreakerGame() {
                 </div>
               </div>
 
+              {/* 다시 시작 버튼 */}
               <button
                 onClick={handleRestart}
-                className="mt-2.5 px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold transition-all shadow-lg text-sm flex items-center gap-2 cursor-pointer active:scale-95"
+                className="mt-1.5 sm:mt-2.5 px-5 py-1.5 sm:px-6 sm:py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold transition-all shadow-lg text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
               >
-                <RotateCcw className="w-4 h-4" />
+                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 다시 시작 (이름 화면)
               </button>
             </div>
