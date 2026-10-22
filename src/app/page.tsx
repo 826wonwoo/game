@@ -847,42 +847,40 @@ export default function BrickBreakerGame() {
                 </div>
 
                 <div className="space-y-1">
-                  {hallOfFame.length > 0 ? (
-                    hallOfFame.slice(0, 3).map((item, index) => {
-                      const rankColors = [
-                        "bg-amber-500/15 border-amber-500/50 text-amber-200", // 1위 금
-                        "bg-slate-300/15 border-slate-400/40 text-slate-100", // 2위 은
-                        "bg-amber-800/25 border-amber-700/40 text-amber-400", // 3위 동
-                      ];
-                      const badgeColors = [
-                        "bg-amber-400 text-slate-950",
-                        "bg-slate-300 text-slate-950",
-                        "bg-amber-600 text-white",
-                      ];
+                  {(hallOfFame.length > 0 ? hallOfFame : [
+                    { rank: 1, name: "-", finishtime: "--:--" },
+                    { rank: 2, name: "-", finishtime: "--:--" },
+                    { rank: 3, name: "-", finishtime: "--:--" },
+                  ]).slice(0, 3).map((item, index) => {
+                    const rankColors = [
+                      "bg-amber-500/15 border-amber-500/50 text-amber-200", // 1위 금
+                      "bg-slate-300/15 border-slate-400/40 text-slate-100", // 2위 은
+                      "bg-amber-800/25 border-amber-700/40 text-amber-400", // 3위 동
+                    ];
+                    const badgeColors = [
+                      "bg-amber-400 text-slate-950",
+                      "bg-slate-300 text-slate-950",
+                      "bg-amber-600 text-white",
+                    ];
 
-                      return (
-                        <div
-                          key={index}
-                          className={`flex items-center justify-between px-2.5 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs ${rankColors[index] || "bg-slate-800/40 border-slate-700 text-slate-300"}`}
-                        >
-                          <div className="flex items-center gap-2 min-w-0">
-                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${badgeColors[index] || "bg-slate-700 text-slate-300"}`}>
-                              {index + 1}
-                            </span>
-                            <span className="font-semibold truncate max-w-[110px] sm:max-w-[140px]">{item.name}</span>
-                          </div>
-                          <div className="font-mono font-bold text-emerald-300 flex items-center gap-1 shrink-0">
-                            <Clock className="w-3 h-3 text-slate-400" />
-                            <span>{item.finishtime}</span>
-                          </div>
+                    return (
+                      <div
+                        key={index}
+                        className={`flex items-center justify-between px-2.5 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs ${rankColors[index] || "bg-slate-800/40 border-slate-700 text-slate-300"}`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${badgeColors[index] || "bg-slate-700 text-slate-300"}`}>
+                            {index + 1}
+                          </span>
+                          <span className="font-semibold truncate max-w-[110px] sm:max-w-[140px]">{item.name}</span>
                         </div>
-                      );
-                    })
-                  ) : (
-                    <div className="text-center py-2 text-xs text-slate-400">
-                      {isHofLoading ? "명예의 전당 랭킹 불러오는 중..." : "등록된 랭킹 기록이 없습니다."}
-                    </div>
-                  )}
+                        <div className="font-mono font-bold text-emerald-300 flex items-center gap-1 shrink-0">
+                          <Clock className="w-3 h-3 text-slate-400" />
+                          <span>{item.finishtime}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
